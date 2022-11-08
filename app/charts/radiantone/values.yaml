@@ -9,8 +9,18 @@ fid:
     zookeeper: true
   nodeSelector:
     tenantname: duploservices-rliqa-dev03
+  zk:
+    clusterName: "rliqa-dev03"
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: app
+          operator: In
+          values:
+          - fid
+        topologyKey: kubernetes.io/hostname
   zookeeper:
     nodeSelector:
       tenantname: duploservices-rliqa-dev03
-  zk:
-    clusterName: "rliqa-dev03"
