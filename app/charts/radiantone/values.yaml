@@ -1,7 +1,7 @@
 fid:
   image:
     tag: "7.4.2"
-  replicaCount: 2
+  replicaCount: 3
   fid:
     rootPassword: "pass1234"
     license: "{rlib}x9TJ257Q47PTyNfVksbS3Mbb1rjUlczSv43U29DS6a/jpNuUxdrSzNTk17+b2+LTt57J38LaoLHn19LVs9XN2M+rpX2emKGShJGWnI3X2ImfqJmlgpWXlpOepHycl5mUio6XqpSvoYGxmZymgpGUmZGep4+bytvIs9XN2M/C3bnU2t3Ev9GhmpekqISonqGbipmWoY3b1cS91s3IxZ6Z"
