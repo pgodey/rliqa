@@ -1,6 +1,6 @@
 fid:
   image:
-    tag: "7.4.1"
+    tag: "7.4.2"
   replicaCount: 2
   fid:
     rootPassword: "pass1234"
