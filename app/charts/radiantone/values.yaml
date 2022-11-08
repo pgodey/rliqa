@@ -6,3 +6,6 @@ fid:
     zookeeper: true
   nodeSelector:
     tenantname: duploservices-rliqa-dev03
+  zookeeper:
+    nodeSelector:
+      tenantname: duploservices-rliqa-dev03
