@@ -17,9 +17,9 @@ fid:
       - labelSelector:
           matchExpressions:
           - key: app
-          operator: In
-          values:
-          - fid
+            operator: In
+            values:
+            - fid
         topologyKey: kubernetes.io/hostname
   zookeeper:
     nodeSelector:
