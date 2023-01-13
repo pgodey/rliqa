@@ -21,6 +21,84 @@ fid:
             values:
             - fid
         topologyKey: kubernetes.io/hostname
+  fullnameOverride: rliqa-dev03-fid      
   zookeeper:
     nodeSelector:
       tenantname: duploservices-rliqa-dev03
+ingress:
+  enabled: true
+  ext: 
+    annotations:
+      alb.ingress.kubernetes.io/load-balancer-name: duplo3-rliqa-dev03-fid
+      alb.ingress.kubernetes.io/group.name: duplo3-rliqa-dev03-group
+      alb.ingress.kubernetes.io/group.order: '1'
+      alb.ingress.kubernetes.io/ip-address-type: ipv4
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/target-type: ip
+      alb.ingress.kubernetes.io/target-node-labels: tenantname=duploservices-rliqa-dev03
+      alb.ingress.kubernetes.io/backend-protocol: HTTPS
+      alb.ingress.kubernetes.io/subnets: subnet-08bfdfcec8ad755a4,subnet-036e6d58e518ecbe9
+      alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-west-2:967346104358:certificate/7e5a2401-8894-4514-8ed4-3a37553ce43a
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
+      alb.ingress.kubernetes.io/security-groups: sg-0625a1db30ff0b004,sg-0985013bc2a8279da,sg-047c79cd547227c31
+      alb.ingress.kubernetes.io/healthcheck-port: traffic-port
+      alb.ingress.kubernetes.io/healthcheck-interval-seconds: '30'
+      alb.ingress.kubernetes.io/healthcheck-timeout-seconds: '5'
+      alb.ingress.kubernetes.io/success-codes: '200'
+      alb.ingress.kubernetes.io/healthy-threshold-count: '3'
+      alb.ingress.kubernetes.io/unhealthy-threshold-count: '3'
+      alb.ingress.kubernetes.io/enable-sticky-session: 'false'
+  #    alb.ingress.kubernetes.io/load-balancer-attributes: access_logs.s3.enabled=true,access_logs.s3.bucket=duplo-rliqa-awslogs-967346104358
+      alb.ingress.kubernetes.io/tags: TENANT_NAME=rliqa-dev03,TENANT_SVC_NAME=rliqa-dev03/fid
+    spec:
+      ingressClassName: alb
+      rules:
+        - host: fid-rliqa-dev03.dc.federated-identity.com
+          http: 
+            paths:
+              - path: /
+                pathType: Prefix
+                backend:
+                  service:
+                    name: rliqa-dev03-fid-ext
+                    port:
+                      number: 7171
+  app: 
+    annotations:
+      alb.ingress.kubernetes.io/load-balancer-name: duplo3-rliqa-dev03-fid
+      alb.ingress.kubernetes.io/group.name: duplo3-rliqa-dev03-group
+      alb.ingress.kubernetes.io/group.order: '2'
+      alb.ingress.kubernetes.io/ip-address-type: ipv4
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/target-type: ip
+      alb.ingress.kubernetes.io/target-node-labels: tenantname=duploservices-rliqa-dev03
+      alb.ingress.kubernetes.io/backend-protocol: HTTPS
+      alb.ingress.kubernetes.io/subnets: subnet-08bfdfcec8ad755a4,subnet-036e6d58e518ecbe9
+      alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-west-2:967346104358:certificate/7e5a2401-8894-4514-8ed4-3a37553ce43a
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":8443}]'
+  #   alb.ingress.kubernetes.io/security-groups: sg-0625a1db30ff0b004,sg-0985013bc2a8279da,sg-047c79cd547227c31
+      alb.ingress.kubernetes.io/healthcheck-port: traffic-port
+      alb.ingress.kubernetes.io/healthcheck-interval-seconds: '30'
+      alb.ingress.kubernetes.io/healthcheck-timeout-seconds: '5'
+      alb.ingress.kubernetes.io/success-codes: '200'
+      alb.ingress.kubernetes.io/healthy-threshold-count: '3'
+      alb.ingress.kubernetes.io/unhealthy-threshold-count: '3'
+      alb.ingress.kubernetes.io/enable-sticky-session: 'false'
+  #    alb.ingress.kubernetes.io/load-balancer-attributes: access_logs.s3.enabled=true,access_logs.s3.bucket=duplo-rliqa-awslogs-967346104358
+      alb.ingress.kubernetes.io/tags: TENANT_NAME=rliqa-dev03,TENANT_SVC_NAME=rliqa-dev03/fid
+    spec:
+      ingressClassName: alb
+      rules:
+        - host: fid-rliqa-dev03.dc.federated-identity.com
+          http: 
+            paths:
+              - path: /
+                pathType: Prefix
+                backend:
+                  service:
+                    name: rliqa-dev03-fid-app
+                    port:
+                      number: 8090  
+
+  
+
