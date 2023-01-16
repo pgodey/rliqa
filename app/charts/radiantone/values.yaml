@@ -25,6 +25,29 @@ fid:
   zookeeper:
     nodeSelector:
       tenantname: duploservices-rliqa-dev03
+service:
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-name: duplo3-rliqa-dev03-fid-ldaps
+    service.beta.kubernetes.io/aws-load-balancer-type: external
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+    # service.beta.kubernetes.io/aws-load-balancer-eip-allocations: eipalloc-05c3ab4f16b9355c1, eipalloc-06f38d2f8bacc7150
+    service.beta.kubernetes.io/aws-load-balancer-subnets: subnet-08bfdfcec8ad755a4,subnet-036e6d58e518ecbe9
+    service.beta.kubernetes.io/aws-load-balancer-alpn-policy: None
+    service.beta.kubernetes.io/aws-load-balancer-target-node-labels: tenantname=duploservices-rliqa-dev03
+    service.beta.kubernetes.io/aws-load-balancer-ip-address-type: ipv4
+    service.beta.kubernetes.io/load-balancer-source-ranges: 10.200.0.0/22,10.200.4.0/22
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-west-2:967346104358:certificate/7e5a2401-8894-4514-8ed4-3a37553ce43a
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: '636'
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: TLS
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-port: traffic-port
+    # service.beta.kubernetes.io/aws-load-balancer-healthcheck-healthy-threshold: '3'
+    # service.beta.kubernetes.io/aws-load-balancer-healthcheck-unhealthy-threshold: '3'
+    # service.beta.kubernetes.io/aws-load-balancer-healthcheck-timeout: '10'
+    # service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval: '20'
+    # service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol: 'TCP'
+    external-dns.alpha.kubernetes.io/hostname: fid-rliqa-dev03-ldaps.dc.federated-identity.com
+  type: LoadBalancer       
 ingress:
   enabled: true
   ext: 
@@ -42,11 +65,11 @@ ingress:
       alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
       alb.ingress.kubernetes.io/security-groups: sg-0625a1db30ff0b004,sg-0985013bc2a8279da,sg-047c79cd547227c31
       alb.ingress.kubernetes.io/healthcheck-port: traffic-port
-      alb.ingress.kubernetes.io/healthcheck-interval-seconds: '30'
-      alb.ingress.kubernetes.io/healthcheck-timeout-seconds: '5'
-      alb.ingress.kubernetes.io/success-codes: '200'
-      alb.ingress.kubernetes.io/healthy-threshold-count: '3'
-      alb.ingress.kubernetes.io/unhealthy-threshold-count: '3'
+      # alb.ingress.kubernetes.io/healthcheck-interval-seconds: '30'
+      # alb.ingress.kubernetes.io/healthcheck-timeout-seconds: '5'
+      # alb.ingress.kubernetes.io/success-codes: '200'
+      # alb.ingress.kubernetes.io/healthy-threshold-count: '3'
+      # alb.ingress.kubernetes.io/unhealthy-threshold-count: '3'
       alb.ingress.kubernetes.io/enable-sticky-session: 'false'
   #    alb.ingress.kubernetes.io/load-balancer-attributes: access_logs.s3.enabled=true,access_logs.s3.bucket=duplo-rliqa-awslogs-967346104358
       alb.ingress.kubernetes.io/tags: TENANT_NAME=rliqa-dev03,TENANT_SVC_NAME=rliqa-dev03/fid
@@ -78,12 +101,12 @@ ingress:
       alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":8443}]'
   #   alb.ingress.kubernetes.io/security-groups: sg-0625a1db30ff0b004,sg-0985013bc2a8279da,sg-047c79cd547227c31
       alb.ingress.kubernetes.io/healthcheck-port: traffic-port
-      alb.ingress.kubernetes.io/healthcheck-interval-seconds: '30'
-      alb.ingress.kubernetes.io/healthcheck-timeout-seconds: '5'
-      alb.ingress.kubernetes.io/success-codes: '200'
-      alb.ingress.kubernetes.io/healthy-threshold-count: '3'
-      alb.ingress.kubernetes.io/unhealthy-threshold-count: '3'
-      alb.ingress.kubernetes.io/enable-sticky-session: 'false'
+      # alb.ingress.kubernetes.io/healthcheck-interval-seconds: '30'
+      # alb.ingress.kubernetes.io/healthcheck-timeout-seconds: '5'
+      # alb.ingress.kubernetes.io/success-codes: '200'
+      # alb.ingress.kubernetes.io/healthy-threshold-count: '3'
+      # alb.ingress.kubernetes.io/unhealthy-threshold-count: '3'
+      # alb.ingress.kubernetes.io/enable-sticky-session: 'false'
   #    alb.ingress.kubernetes.io/load-balancer-attributes: access_logs.s3.enabled=true,access_logs.s3.bucket=duplo-rliqa-awslogs-967346104358
       alb.ingress.kubernetes.io/tags: TENANT_NAME=rliqa-dev03,TENANT_SVC_NAME=rliqa-dev03/fid
     spec:
@@ -98,7 +121,4 @@ ingress:
                   service:
                     name: rliqa-dev03-fid-app
                     port:
-                      number: 8090  
-
-  
-
+                      number: 8090 
